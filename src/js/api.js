@@ -8,12 +8,11 @@ class Api {
             }
         })
         .then(response => response.json())
-        .catch(error => console.log(error));
+        .catch(error => console.log(error))
         return clients;
     }
-
     static async cadastrarCliente(body){
-        const newClient = await fetch(Api.baseUrl, {
+        const client = await fetch(Api.baseUrl, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -21,18 +20,44 @@ class Api {
             body: JSON.stringify(body)
         })
         .then(response => response.json())
-        .catch(error => console.log(error));
-        return newClient;
+        .catch(error => console.log(error))
+        return client;
     }
-
-    static async editarCliente(id, data){
-
+    static async pesquisarCliente(id) {
+        const client = await fetch(`${Api.baseUrl}/${id}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(response => response.json())
+        .catch(error => console.log(error))
+        return client;
     }
-
-    static async deletarCliente(id){
-
+    static async editarCliente(id, body) {
+        const client = await fetch(`${Api.baseUrl}/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body)
+        })
+        .then(response => response.json())
+        .catch(error => console.log(error))
+        return client;
     }
-
+    static async deletarCliente(id) {
+        const client = await fetch(`${Api.baseUrl}/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(response => response.json())
+        .catch(error => {
+            console.log(`message: ${error}`)
+        })
+        return client;
+    }
 }
-  
 export {Api}
