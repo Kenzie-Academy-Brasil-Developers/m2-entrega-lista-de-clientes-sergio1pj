@@ -12,8 +12,17 @@ class Api {
         return clients;
     }
 
-    static async cadastrarCliente(data){
-
+    static async cadastrarCliente(body){
+        const newClient = await fetch(Api.baseUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body)
+        })
+        .then(response => response.json())
+        .catch(error => console.log(error));
+        return newClient;
     }
 
     static async editarCliente(id, data){
